@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "address",
+  "type": "object",
+  "properties": {
+    "street":
+    {
+      "type": "string"
+    },
+    "city":
+    {
+      "type": "string"
+    },
+    "zip_code":
+    { "type": "string"
+    }
+  },
+  "required": ["street", "city", "zip_code"]
+}
