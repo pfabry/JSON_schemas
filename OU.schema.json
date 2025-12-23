@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://griis.ca/data/json/schema/OU_schema.json",
+  "title": "OU Schema - 20251219",
+  "description": "JSON Schema validating an Ontological unit. Refers to 'https://res.griis.ca/json_schema/OU.schema/OU.statement.schema.json' ",
+  "type": "object",
+  "properties": {
+    "OU_ID": {
+      "description": "Identifier of the OU",
+      "type": "string",
+      "format": "uuid"
+    },
+    "OU_OID":
+    {
+      "description": "OID of interest of the OU.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "OU_Author":
+    {
+      "description": "Author of the OU. At least 1.",
+      "type": "array",
+      "items":
+      {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "OU_Version":
+    {
+      "description": "Version of the OU",
+      "type": "string"
+    },
+    "HRT":
+    {
+      "description": "Human readable tag. Can be empty.",
+      "type": "array",
+      "items":
+      {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "Invariant_statements_set":
+    {
+      "description": "Set of statements considered invariant by the OU author. May be the empty set. Refers to OU.statement.schema.json",
+      "type": "array",
+      "items":
+      {
+        "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.statement.schema.json"
+      },
+      "minItems": 0
+    },
+    "Empirical_statements_set":
+    {
+      "description": "Set of statements considered empirical by the OU author. May be the empty set. Refers to OU.statement.schema.json",
+      "type": "array",
+      "items":
+      {
+        "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.statement.schema.json"
+      },
+      "minItems": 0
+    },
+    "OID2OU_set":
+    {
+      "description": "Set of mappings between the OID mentioned in the statements and the OU where they come from.",
+      "type": "array",
+      "items":
+      {
+        "type": "object",
+        "properties":
+        {
+          "OID":
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_OU":
+          {
+            "type": "object",
+            "properties":
+            {
+              "target_OU_ID":
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              "target_OU_version":
+              {
+                "type": "string"
+              }
+            },
+            "required":
+            [
+              "target_OU_ID",
+              "target_OU_version"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required":
+        [
+          "OID",
+          "target_OU"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "OU_ID",
+    "OU_OID",
+    "OU_Version",
+    "Invariant_statements_set",
+    "Empirical_statements_set"
+  ]
+}

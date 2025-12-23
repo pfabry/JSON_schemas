@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://res.griis.ca/json_schema/OU.schema/OU.statement.schema.json",
+  "title": "OU Schema - statement - 20251222",
+  "description": "JSON schema validating the statements within an OU. 2 typres of statements: condition includes a condition type and a term, property characteristic describes characteristics of object properties. Refers to 'https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json'",
+  "type": "object",
+  "properties":
+  {
+    "statement":
+    {
+      "oneOf":
+      [
+        {
+          "$ref": "#/$defs/condition"
+        },
+        {
+          "$ref": "#/$defs/property_characteristic"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "condition":
+    {
+      "description": "A statement that express a condition type on a subject term.",
+      "type": "object",
+      "properties":
+      {
+        "condition_type":
+        {
+          "description": "Necessary Condition (NC) or Necessary and Sufficient Condition (NSC)",
+          "type": "string",
+          "enum":
+          [
+            "NC",
+            "NSC"
+          ]
+        },
+        "subject_term":
+        {
+          "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json"
+        }
+      }
+    },
+    "property_characteristic":
+    {
+      "description": "A characteristic of an object property: Domain (term), Range (term or data value), transitivity (bool), functional (bool), inverse functional (bool), symmetry (enum), reflexivity (enum), property chain (term/property_chain).",
+      "type": "object",
+      "properties":
+      {
+        "domain":
+        {
+          "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json"
+        },
+        "range":
+        {
+          "oneOf":
+          [
+            {
+              "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json"
+            },
+            {
+              "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json#/$defs/data_value"
+            }
+          ]
+        },
+        "symmetry":
+        {
+          "type": "string",
+          "enum":
+          [
+            "Symmetric",
+            "Asymmetric"
+          ]
+        },
+        "transitive":
+        {
+          "type": "boolean"
+        },
+        "functional":
+        {
+          "type": "boolean"
+        },
+        "inverse_functional":
+        {
+          "type": "boolean"
+        },
+        "reflexivity":
+        {
+          "type": "string",
+          "enum":
+          [
+            "Reflexive",
+            "Irreflexive"
+          ]
+        },
+        "property_chain":
+        {
+          "$ref": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json#/$defs/property_chain"
+        }
+      }
+    },
+  }
+}

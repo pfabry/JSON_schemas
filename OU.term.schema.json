@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json",
+  "title": "Schema OU_term - 20251222",
+  "description": "JSON schema validating the term inside a statement within an OU",
+  "type": "object",
+  "$ref": "#/$defs/OU_term",
+  "$defs": {
+    "OU_term": {
+      "description": "The main abstract class. 1 of 3 types of term: atomic, composed or negative",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/atomic_OU_term"
+        },
+        {
+          "$ref": "#/$defs/composed_OU_term"
+        },
+        {
+          "$ref": "#/$defs/negative_OU_term"
+        }
+      ]
+    },
+    "NL_txt":
+    {
+      "type": "object",
+      "description": "Natural language statement with language tag, used in atomic_OU_term",
+      "properties":
+      {
+        "NL_term":
+        {
+          "type": "object",
+          "properties":
+          {
+            "txt":
+            {
+              "type": "string"
+            },
+            "language":
+            {
+              "type": "string"
+            }
+          },
+          "required":
+          [
+            "txt",
+            "language"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "atomic_OU_term": {
+      "description": "The abstract class of atomic term. 1 of 2 types of atomic term: natural language (NL_term) or OID. Used in OU_term",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/NL_txt"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "OID": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "OID"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "composed_OU_term":
+    {
+      "description": "The abstract class of composed terms. 1 of 5 types: logical term (ex: A OR B), quantified term (ex: R some B), quantified term with data value (ex: S exactly 1 < 400 xsd:integer), property chain (ex: R o S) and individual assertion (instances).",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logical_OU_term"
+        },
+        {
+          "$ref": "#/$defs/quantified_OU_term"
+        },
+        {
+          "$ref": "#/$defs/quantified_OU_term_with_datavalue"
+        },
+        {
+          "$ref": "#/$defs/property_chain"
+        },
+        {
+          "$ref": "#/$defs/individual_assertion"
+        }
+      ]
+    },
+    "logical_operator":
+    {
+      "description": "The logical keywords. Used in logical_OU_term",
+      "type": "string",
+    "enum": ["AND", "OR"]
+},
+    "quantifier":
+    {
+      "description": "Universal and existential quantifier with an optional integer. Used in quantified_OU_term and quantified_OU_term_with_data",
+      "type": "object",
+      "properties":
+      {
+        "quantifier_description":
+        {
+          "type": "string",
+          "enum":
+          [
+            "SOME",
+            "ONLY",
+            "EXACTLY",
+            "MIN",
+            "MAX"
+          ]
+        },
+        "quantifier_cardinality":
+        {
+          "type": "integer"
+        }
+      },
+      "required":
+      [
+        "quantifier_description"
+      ],
+      "additionalProperties": false
+    },
+    "data_value":
+    {
+      "description": "A given data value with its associated datatype and an optional constraint (ex. '>'). Used in quantified_OU_with_data and individual_assertion",
+      "type": "object",
+      "properties":
+      {
+        "constraint":
+        {
+          "type": "string"
+        },
+        "value":
+        {
+          "type":
+          [
+            "number",
+            "string"
+          ]
+        },
+        "datatype":
+        {
+          "type": "string",
+          "format": "IRI"
+        }
+      },
+      "required": [
+        "value",
+        "datatype"
+      ],
+      "additionalProperties": false
+    },
+    "logical_OU_term":
+    {
+      "description":"A part of a statement with a logical operator (ex. A OR B). Used in composed_OU_term",
+      "type": "object",
+      "properties":
+      {
+        "first_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        },
+        "log_op":
+        {
+          "$ref": "#/$defs/logical_operator"
+        },
+        "second_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        }
+      },
+      "required":
+      [
+        "first_OU_term",
+        "log_op",
+        "second_OU_term"
+      ],
+      "additionalProperties": false
+    },
+    "quantified_OU_term":
+    {
+      "description":"A part of a statement with a quantifier (ex. R some B). Used in composed_OU_term",
+      "type": "object",
+      "properties":
+      {
+        "first_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        },
+        "quant":
+        {
+          "$ref": "#/$defs/quantifier"
+        },
+        "second_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        }
+      },
+      "required":
+      [
+        "first_OU_term",
+        "quant",
+        "second_OU_term"
+      ],
+      "additionalProperties": false
+    },
+    "quantified_OU_term_with_datavalue":
+    {
+      "description":"A part of a statement with a quantifier and a datavalue (ex. S exactly 1 < 500 xsd:int). Used in composed_OU_term",
+      "type": "object",
+      "properties":
+      {
+        "first_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        },
+        "quant":
+        {
+          "$ref": "#/$defs/quantifier"
+        },
+        "data_val":
+        {
+          "$ref": "#/$defs/data_value"
+        }
+      },
+      "required":
+      [
+        "first_OU_term",
+        "quant",
+        "data_val"
+      ],
+      "additionalProperties": false
+    },
+    "property_chain":
+    {
+      "description":"A part of a statement that describes a composition of 2 atomic terms (ex: R o S). For object properties. Used in composed_OU_term",
+      "type": "object",
+      "properties":
+      {
+        "first_atomic_OU_term":
+        {
+          "$ref": "#/$defs/atomic_OU_term"
+        },
+        "composition_operator":
+        {
+          "const": "o"
+        },
+        "second_atomic_OU_term":
+        {
+          "$ref": "#/$defs/atomic_OU_term"
+        }
+      },
+      "required":
+      [
+        "first_atomic_OU_term",
+        "composition_operator",
+        "second_atomic_OU_term"
+      ],
+      "additionalProperties": false
+    },
+    "individual_assertion":
+    {
+      "description":"A part of a statement that describes instances properties and relations. Used in composed_OU_term",
+      "type": "object",
+      "properties":
+      {
+        "subject":
+        {
+          "$ref": "#/$defs/atomic_OU_term"
+        },
+        "target":
+        {
+          "oneOf":
+          [
+            {
+              "$ref": "#/$defs/atomic_OU_term"
+            },
+            {
+              "$ref": "#/$defs/data_value"
+            }
+          ]
+        }
+      },
+      "required":
+      [
+        "subject",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "negative_OU_term":
+    {
+      "description": "The abstract class for all term that start with a logical negation 'NOT'. Not to be confused with the JSON keyword 'not'",
+      "type": "object",
+      "properties":
+      {
+        "negation":
+        {
+          "const": "NOT"
+        },
+        "any_OU_term":
+        {
+          "$ref": "#/$defs/OU_term"
+        }
+      },
+      "required": [
+        "negation",
+        "any_OU_term"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
