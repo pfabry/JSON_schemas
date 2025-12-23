@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.statement.schema.json",
+  "$id": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.statement.schema.json",
   "title": "OU Schema - statement - 20251222",
   "description": "JSON schema validating the statements within an OU. 2 typres of statements: condition includes a condition type and a term, property characteristic describes characteristics of object properties. Refers to 'https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json'",
   "type": "object",
@@ -38,7 +38,7 @@
         },
         "subject_term":
         {
-          "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json"
+          "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json"
         }
       }
     },
@@ -50,17 +50,17 @@
       {
         "domain":
         {
-          "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json"
+          "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json"
         },
         "range":
         {
           "oneOf":
           [
             {
-              "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json"
+              "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json"
             },
             {
-              "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json#/$defs/data_value"
+              "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json#/$defs/data_value"
             }
           ]
         },
@@ -96,7 +96,7 @@
         },
         "property_chain":
         {
-          "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json#/$defs/property_chain"
+          "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json#/$defs/property_chain"
         }
       }
     },

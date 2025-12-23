@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.schema.json",
+  "$id": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.schema.json",
   "title": "OU Schema - 20251219",
   "description": "JSON Schema validating an Ontological unit. Refers to 'https://res.griis.ca/json_schema/OU.schema/OU.statement.schema.json' ",
   "type": "object",
@@ -47,7 +47,7 @@
       "type": "array",
       "items":
       {
-        "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.statement.schema.json"
+        "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.statement.schema.json"
       },
       "minItems": 0
     },
@@ -57,7 +57,7 @@
       "type": "array",
       "items":
       {
-        "$ref": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.statement.schema.json"
+        "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.statement.schema.json"
       },
       "minItems": 0
     },
