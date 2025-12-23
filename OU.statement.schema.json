@@ -99,6 +99,6 @@
           "$ref": "https://raw.githubusercontent.com/pfabry/JSON_schemas/main/OU.term.schema.json#/$defs/property_chain"
         }
       }
-    },
+    }
   }
 }
