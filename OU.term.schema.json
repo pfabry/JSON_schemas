@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://res.griis.ca/json_schema/OU.schema/OU.term.schema.json",
+  "$id": "https://github.com/pfabry/JSON_schemas/raw/refs/heads/main/OU.term.schema.json",
   "title": "Schema OU_term - 20251222",
   "description": "JSON schema validating the term inside a statement within an OU",
   "type": "object",
